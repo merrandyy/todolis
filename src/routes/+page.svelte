@@ -1,9 +1,18 @@
+<script lang="ts">
+	import dayjs from 'dayjs';
+	import 'dayjs/locale/ar';
+
+	dayjs.locale('ar');
+
+	let period=dayjs().format('a') == 'م' ? 'مساء' : 'صباح'
+</script>
+
 <div class="p-16">
 <header class=" flex justify-between">
 <div>
-	 <h1 class="text-4xl mb-4">صباح الخير 👋 <h1/>
-	<h2 class=" text-2xl text-surface-900/60 ">  اليوم، الخميس ٢٠</h2>
+	 <h1 class="text-4xl mb-4"> {period}  الخير 👋 <h1/>
+	<h2 class=" text-2xl text-surface-900/60 "> {dayjs().format('اليوم، dddd D MMM YYYY')} </h2>
 </div>
-	<div class=" bg-red-500 w-20 h-20"> </div>
+	<div class=" bg-white w-32 h-16"> </div>
 </header>
 </div>
