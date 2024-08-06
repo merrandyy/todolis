@@ -5,7 +5,6 @@
     dayjs.extend(relativeTime);
     import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
-
     export let donetasks: boolean;
 
 
@@ -18,12 +17,8 @@
 	// TRUE if confirm pressed, FALSE if cancel pressed
 	response: (r: boolean) => console.log('response:', r),
 };
-modalStore.trigger(modal);
-}
-
+modalStore.trigger(modal); }
 </script>
-
-
 {#each $tasks as task}
     {#if task.isDone=donetasks}
     <li class=" bg-secondary-500 items-center p-1.5 rounded-lg flex justify-between">
