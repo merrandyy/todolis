@@ -4,6 +4,9 @@
     import relativeTime from 'dayjs/plugin/relativeTime'
     dayjs.extend(relativeTime);
     import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+    import { slide } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
+
     const modalStore = getModalStore();
     export let donetasks: boolean;
 
@@ -12,16 +15,28 @@
     const modal: ModalSettings = {
 	type: 'confirm',
 	// Data
-	title: 'Please Confirm',
-	body: 'Are you sure you wish to proceed?',
+	title: "متاكد تبغا تحذف ؟",
+	body:`سيتم حذف المهمة: "${task.title}"` ,
 	// TRUE if confirm pressed, FALSE if cancel pressed
 	response: (r: boolean) => console.log('response:', r),
+    buttonTextCancel: "الغاء",
+    buttonTextConfirm: "تاكيد",
+    response: (r: boolean) => {
+        if (r) {
+            tasks.update((currentTasks) => {
+                let index = currentTasks.indexOf(task);
+                currentTasks.splice(index,1);
+                return currentTasks;
+            })
+        }
+    }
 };
 modalStore.trigger(modal); }
 </script>
 {#each $tasks as task}
-    {#if task.isDone=donetasks}
-    <li class=" bg-secondary-500 items-center p-1.5 rounded-lg flex justify-between">
+    {#if task.isDone===donetasks}
+    <li transition:slide
+     class=" bg-secondary-500 items-center p-1.5 rounded-lg flex justify-between">
       <div>
         <input bind:checked={task.isDone} class="checkbox w-6 h-6 rounded-lg" type="checkbox" >
       <span class="mr-2">

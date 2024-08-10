@@ -13,6 +13,6 @@ initializeStores();
 
 </script>
 
-<Modal />
+<Modal buttonPositive="variant-filled-error"/>
 
 <slot />
