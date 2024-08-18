@@ -18,7 +18,6 @@
 	title: "متاكد تبغا تحذف ؟",
 	body:`سيتم حذف المهمة: "${task.title}"` ,
 	// TRUE if confirm pressed, FALSE if cancel pressed
-	response: (r: boolean) => console.log('response:', r),
     buttonTextCancel: "الغاء",
     buttonTextConfirm: "تاكيد",
     response: (r: boolean) => {
