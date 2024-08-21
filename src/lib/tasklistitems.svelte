@@ -5,7 +5,8 @@
     dayjs.extend(relativeTime);
     import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
     import { slide } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
+	  
+    import { filter } from "$lib/stores/filter";
 
     const modalStore = getModalStore();
     export let donetasks: boolean;
@@ -31,9 +32,21 @@
     }
 };
 modalStore.trigger(modal); }
+
+function applyFilter (filter: typeof $filter, task: Task): boolean {
+  switch (filter) {
+    case "مهام اليوم" :
+      return dayjs(task.assignedDate).unix() - dayjs().unix() <= 24*60*60;
+      case "جميع المهام" :
+      default:
+        return true;
+      }
+}
+
 </script>
+
 {#each $tasks as task}
-    {#if task.isDone===donetasks}
+    {#if task.isDone===donetasks && applyFilter($filter, task)}
     <li transition:slide
      class=" bg-secondary-500 items-center p-1.5 rounded-lg flex justify-between">
       <div>
@@ -44,7 +57,7 @@ modalStore.trigger(modal); }
       </div>
       <div class="flex gap-1.5">
         <button class="btn variant-filled-surface hover:bg-surface-700 text-black">
-            {dayjs(task.assignedDate).format('hh:mm')}
+            {dayjs().to(dayjs(task.assignedDate))}
           </button>
           <button  on:click={() => confirmdelet(task)} 
             class="btn variant-filled-surface hover:bg-surface-700 text-black p-4">

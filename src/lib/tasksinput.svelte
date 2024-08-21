@@ -1,10 +1,10 @@
 <script lang="ts">
     import {tasks} from "$lib/stores/tasks";
-    import { Redirect_1 } from "@sveltejs/kit";
 	import dayjs from "dayjs";
+    import Tasklistitems from "./tasklistitems.svelte";
 
     let title="";
-    let datetime= dayjs().format("YYYY-MM-DDTHH:mm");
+    let datetime = dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm");
 
 function addTask() {
     tasks.update((currentTasks) => {
@@ -14,8 +14,10 @@ function addTask() {
             isDone: false,
         });
     
-        return currentTasks;
-});
+        return currentTasks.sort((a: Task, b: Task) => {
+          return dayjs(a.assignedDate).unix() - dayjs(b.assignedDate).unix() ;
+        });
+     });
 }
 
 </script>
