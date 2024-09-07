@@ -50,12 +50,12 @@ function applyFilter (filter: typeof $filter, task: Task): boolean {
     <li transition:slide
      class=" bg-secondary-500 items-center p-1.5 rounded-lg flex justify-between">
       <div>
-        <input bind:checked={task.isDone} class="checkbox w-6 h-6 rounded-lg" type="checkbox" >
-      <span class="mr-2">
+        <input bind:checked={task.isDone} class="checkbox w-6 h-6 rounded-lg " type="checkbox" >
+      <span class=" mr-2">
         {task.title}
       </span>
       </div>
-      <div class="flex gap-1.5">
+      <div class=" flex gap-1.5">
         <button class="btn variant-filled-surface hover:bg-surface-700 text-black">
             {dayjs().to(dayjs(task.assignedDate))}
           </button>
